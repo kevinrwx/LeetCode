@@ -2,20 +2,20 @@
 
 #include <iostream>
 #include <vector>
-#include <tr1/unordered_map>
+#include <unordered_map>
 
 using namespace std;
 
 vector<int> twoSum(vector<int> &numbers, int target)
 {
-    std::tr1::unordered_map<int, int> mapping;
+    unordered_map<int, int> mapping;
     vector<int> result;
     for(int i = 0; i < numbers.size(); i++) {
         mapping[numbers[i]] = i;
     }
     for(int i = 0; i < numbers.size(); i++) {
         const int gap = target - numbers[i];
-        if(mapping.find(gap) != mapping.end() && mapping[gap] > i) {
+        if(mapping.find(gap) != mapping.end() && mapping[gap] != i) {
             result.push_back(i + 1);
             result.push_back(mapping[gap] + 1);
             break;
