@@ -31,7 +31,7 @@ int main()
     numbers.push_back(7);
     numbers.push_back(11);
     numbers.push_back(15);
-    int target = 9;
+    int target = 13;
     vector<int> resu = twoSum(numbers, target);
     cout<<"Index1: "<<resu[0]<<" Index2: "<<resu[1];
     return 0;
