@@ -18,7 +18,7 @@ int canCompleteCircuit(vector<int> &gas, vector<int> &cost)
     }
 
     for(vector<int>::size_type j = 0; j != bala.size(); j++) {
-        sum = sum -bala[j] + bala[]
+        sum = sum -bala[j] + bala[];
         if()
     }
     return index;
