@@ -19,21 +19,20 @@ bool isPalindrome(string s)
         }
     }
     if(i == s.size()) {
-        for(string::size_type sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
-            if(s[sStart] != s[sEnd])
-                return false;
-        }
+            return true;
+//        for(int sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
+//            if((sStart < sEnd) && s[sStart] != s[sEnd])
+//                return false;
+//        }
     }
     else {
-        for(string::size_type sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
+        for(int sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
             while(!isalnum(s[sStart]))
                 sStart++;
             while(!isalnum(s[sEnd]))
                 sEnd--;
-            if(tolower(s[sStart]) != tolower(s[sEnd]))
+            if((sStart < sEnd) && tolower(s[sStart]) != tolower(s[sEnd]))
                 return false;
-            if(sStart == sEnd)
-                return true;
         }
     }
     return true;
@@ -42,7 +41,8 @@ bool isPalindrome(string s)
 int main()
 {
 //    string str = "race a car";
-    string str = "a.";
+//    string str = "a.";
+    string str = ".,";
 //    string str = "A man, a plan, a canal: Panama";
     if(isPalindrome(str))
         cout<<"yes"<<endl;
