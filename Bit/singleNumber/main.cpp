@@ -17,7 +17,7 @@ int singleNumber(int A[], int n)
 
 int main()
 {
-    int A[] = {1,1,2,2,3,3,4};
+    int A[] = {1,1,2,2,3,3,5};
     int n = sizeof(A)/sizeof(A[0]);
     cout<<"The number is: "<<singleNumber(A, n)<<endl;
     return 0;
