@@ -2,48 +2,51 @@
 //Valid Palindrome
 
 #include <iostream>
+#include <string>
+#include <cctype>
 #include <string.h>
 
 using namespace std;
 
-//bool isPalindrome(string s)
-//{
-//    if(s.size() == 0)
-//        return false;
-//    char* sStart = &s[0];
-//    char* sEnd = &s[s.size()-1];
-//    char c1 = " ";
-//    char c2 = ",";
-//    char c3 = ":";
-//    char c4 = ".";
-//    while(sStart <= sEnd) {
-//        if(*sStart == c1 || *sStart == c2 || *sStart == c3 || *sStart == c4)
-//            sStart++;
-//        if(*sEnd == c1 || *sEnd == c2 || *sEnd == c3 || *sEnd == c4)
-//            sEnd--;
-//        if(*sStart != *sEnd)
-//            return false;
-//        sStart++;
-//        sEnd--;
-//    }
-//    return true;
-//}
+bool isPalindrome(string s)
+{
+    if(s.size() <= 1)
+        return true;
+    string::size_type i;
+    for(i = 0; i != s.size(); i++) {
+        if(isalnum(s[i])){
+            break;
+        }
+    }
+    if(i == s.size()) {
+        for(string::size_type sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
+            if(s[sStart] != s[sEnd])
+                return false;
+        }
+    }
+    else {
+        for(string::size_type sStart = 0, sEnd = s.size()-1; sStart < sEnd; sStart++, sEnd--) {
+            while(!isalnum(s[sStart]))
+                sStart++;
+            while(!isalnum(s[sEnd]))
+                sEnd--;
+            if(tolower(s[sStart]) != tolower(s[sEnd]))
+                return false;
+            if(sStart == sEnd)
+                return true;
+        }
+    }
+    return true;
+}
 
 int main()
 {
 //    string str = "race a car";
-    string str = "A man, a plan, a canal: Panama";
-//    if(isPalindrome(str))
-//        cout<<"yes"<<endl;
-//    else
-//        cout<<"no"<<endl;
-    char* s = &str[0];
-    cout<<*s<<endl;
-    const char* c = (const char*)"A";
-    cout<<*c<<endl;
-    if(strcmp(s, c) == 0)
-        cout<<"the same"<<endl;
+    string str = "a.";
+//    string str = "A man, a plan, a canal: Panama";
+    if(isPalindrome(str))
+        cout<<"yes"<<endl;
     else
-        cout<<"not the same"<<endl;
+        cout<<"no"<<endl;
     return 0;
 }
