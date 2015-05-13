@@ -54,33 +54,36 @@ ListNode* rotateRight(ListNode *head, int k)
 {
     if(head == NULL)
         return NULL;
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
-    ListNode *p = head;
-    ListNode *dummy2 = dummy;
+    if(k == 0)
+        return head;
+
+    ListNode *dummy_head = new ListNode(-1);
+    dummy_head->next = head;
+    ListNode *dummy_tail = dummy_head;
+    ListNode *dummy_middle = dummy_head;
     int n = 0;
     int m;
-    while(p != NULL) {
+    while(dummy_tail->next != NULL) {
         n++;
-        p = p->next;
-        dummy2 = dummy2->next;
+        dummy_tail = dummy_tail->next;
     }
-    ListNode *dummy1 = head;
-    m = n - k - 1;
+    k = k % n;
+    m = n - k;
     while(m > 0) {
-        dummy1 = dummy1->next;
+        dummy_middle = dummy_middle->next;
         m--;
     }
-    dummy->next = dummy1->next;
-    dummy1->next = dummy2->next;
-    dummy2->next = head;
-    return dummy->next;
+    dummy_tail->next = dummy_head->next;
+    dummy_head->next = dummy_middle->next;
+    dummy_middle->next = NULL;
+    return dummy_head->next;
 }
 
 
 int main()
 {
     int A[] = {1, 2, 3, 4, 5};
+//    int A[] = {1};
     int n = sizeof(A)/sizeof(A[0]);
     ListNode *p = createList(A, n);
     cout<<"Before Rotate: "<<endl;
@@ -90,3 +93,4 @@ int main()
     printList(q);
     return 0;
 }
+
