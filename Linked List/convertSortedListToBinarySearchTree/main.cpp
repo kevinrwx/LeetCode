@@ -42,12 +42,14 @@ TreeNode* sortedListToBST(ListNode* head)
         counts++;
         p = p->next;
     }
-    int arr[counts];
+    int *arr = new int[counts];
     p = head;
     while(p != NULL) {
         arr[n++] = p->val;
+        p = p->next;
     }
     TreeNode* root = sortedArrayToBST(arr, 0, counts-1);
+    delete []arr;
     return root;
 }
 
@@ -100,7 +102,7 @@ int main()
     cout<<"arrayToList: ";
     printList(head);
     cout<<endl;
-    cout<<"Before sortedListToBST: ";
+    cout<<"After sortedListToBST: ";
     TreeNode* root = sortedListToBST(head);
     preOrder(root);
     return 0;
