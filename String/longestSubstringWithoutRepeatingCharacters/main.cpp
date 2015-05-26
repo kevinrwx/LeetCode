@@ -7,6 +7,7 @@
 
 using namespace std;
 
+//第一种方法只考虑了字符为26个字母的情况
 //int lengthOfLongestSubstring(string s)
 //{
 //    int length = s.length();
@@ -38,9 +39,9 @@ int lengthOfLongestSubstring(string s)
     memset(count, -1, sizeof(count));
     int len = 0;
     int maxV = 0;
-    for(int i = 0; i < length; i++) {
+    for(int i = 0; i < length; i++, len++) {
         if(count[s[i] - ' '] >= 0) {
-            len = max(len, maxV);
+            maxV = max(len, maxV);
             i = count[s[i] - ' '] + 1;
             len = 0;
             memset(count, -1, sizeof(count));
@@ -53,7 +54,7 @@ int lengthOfLongestSubstring(string s)
 
 int main()
 {
-    string str = "pwwekw";
+    string str = "abcb";
     int result = lengthOfLongestSubstring(str);
     cout<<"The result is: "<<result<<endl;
     return 0;
