@@ -7,77 +7,39 @@
 
 using namespace std;
 
-//int divide(int dividend, int divisor)
-//{
-//    if(divisor == 0)
-//        return INT_MAX;
-//    if(dividend == 0)
-//        return 0;
-//    int counts = 0;
-//    if(dividend > 0 && divisor > 0) {
-//        while(dividend >= 0) {
-//            dividend -= divisor;
-//            counts++;
-//        }
-//    }
-//    else if(dividend < 0 && divisor < 0) {
-//        while(dividend <= 0) {
-//            dividend -= divisor;
-//            counts++;
-//        }
-//    }
-//    else if(dividend > 0 && divisor < 0) {
-//        while(dividend >= 0) {
-//            dividend += divisor;
-//            counts--;
-//        }
-//    }
-//    else {
-//        while(dividend <= 0) {
-//            dividend += divisor;
-//            counts--;
-//        }
-//    }
-//    return (counts > 0) ? --counts : ++counts;
-//}
-
 unsigned long opposite(int num)
 {
     return ~num + 1;
 }
 
-unsigned long abs(int num)
+unsigned long myAbs(int num)
 {
     if(num < 0)
         return ~(--num);
     return num;
 }
 
-//int abs(int i)
-//{
-//    return ((i >> 31) ^ i) - (i >> 31);
-//}
 
-
-unsigned long divide(int dividend, int divisor)
+int divide(int dividend, int divisor)
 {
     if(divisor == 0)
         return INT_MAX;
+    if(dividend == 0)
+        return 0;
+    unsigned long tmpDividend = myAbs(dividend);
+    unsigned long tmpDivisor = myAbs(divisor);
 
-    int tmpDividend = abs(dividend);
-    int tmpDivisor = abs(divisor);
-
-    int result = 0;
-    int counts = 1;
-    int sum = tmpDivisor;
-    int tmpSum = 0;
-    int tmpCounts = 0;
+    unsigned long result = 0;
+    unsigned long counts = 1;
+    unsigned long sum = tmpDivisor;
+    unsigned long tmpSum = 0;
+    unsigned long tmpCounts = 0;
 
     if(sum > tmpDividend)
         return 0;
     if(sum == tmpDividend)
         return 1;
-    while(tmpDividend - sum > 0) {
+    while(tmpDividend > sum) {
         tmpSum = sum;
         sum += sum;
         tmpCounts = counts;
@@ -87,19 +49,32 @@ unsigned long divide(int dividend, int divisor)
     result = tmpCounts + tmp;
 
     if((dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0)) {
-        return result;
+        if(result > INT_MAX)
+            return INT_MAX;
+        else
+            return result;
     }
     else {
-        return opposite(result);
+        if(result > INT_MAX)
+            return INT_MIN;
+        else
+            return opposite(result);
     }
 }
 
 
 int main()
 {
-    int dividend = INT_MIN;
+    int dividend = -2147483648;
     int divisor = 1;
     unsigned long result = divide(dividend, divisor);
+
+//-2147483648
+//-1010369383
+//    int num = INT_MIN;
+//    unsigned long result = abs(num);
     cout<<"The result is: "<<result<<endl;
     return 0;
 }
+
+
