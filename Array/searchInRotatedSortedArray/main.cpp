@@ -40,7 +40,7 @@ int binarySearch(int A[], int left, int right, int target)
     return -1;
 }
 
-
+//method I
 int search(int A[], int n, int target)
 {
     //
@@ -70,6 +70,56 @@ int search(int A[], int n, int target)
         }
     }
 }
+
+//method II
+int search(vector<int> &nums, int target)
+{
+    int length = nums.size();
+    if(length == 0)
+        return -1;
+    int low = 0;
+    int high = length;
+    int mid;
+
+    while(low < high) {
+        mid = low + (high - low) / 2;
+        if(nums[mid] == target)
+            return mid;
+        if(nums[low] <= nums[mid]) {
+            if(target < nums[mid] && target >= nums[low])
+                high = mid;
+            else
+                low = mid + 1;
+        }
+        else {
+            if(target > nums[mid] && target <= nums[high - 1])
+                low = mid + 1;
+            else
+                high = mid;
+        }
+    }
+    return -1;
+}
+
+
+vector<int> arrayToVector(int arr[], int n)
+{
+    vector<int> nums;
+    for(int i = 0; i < n; i++)
+        nums.push_back(arr[i]);
+    return nums;
+}
+
+void printVector(vector<int> &nums)
+{
+    int length = nums.size();
+    if(length == 0)
+        cout<<"Empty Vector"<<endl;
+    for(int i = 0; i < length; i++)
+        cout<<nums[i]<<" ";
+    cout<<endl;
+}
+
 
 int main()
 {
