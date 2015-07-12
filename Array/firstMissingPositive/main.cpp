@@ -69,32 +69,32 @@ int firstMissingPositive(vector<int> &nums)
     int length = nums.size();
     if(length == 0)
         return 1;
-    int *tmp = new int[length];
-    memset(tmp, 0, length*sizeof(int));
-    for(int i = 0; i < length; i++) {
-        if(nums[i] >= 0 && nums[i] < length) {
-            tmp[nums[i]] = nums[i];
+    int *tmp = new int[length + 1];
+    memset(tmp, 0, (length + 1)*sizeof(int));
+    for(int i = 1; i <= length; i++) {
+        if(nums[i - 1] >= 1 && nums[i - 1] <= length) {
+            tmp[nums[i - 1]] = nums[i - 1];
         }
     }
     int j;
-    for(j = 0; j < length; j++) {
+    for(j = 1; j <= length; j++) {
         if(tmp[j] != j)
             return j;
     }
-    return j;
     delete[] tmp;
+    return j;
 }
 
 int main()
 {
     vector<int> nums;
-//    nums.push_back(3);
-//    nums.push_back(4);
-//    nums.push_back(-1);
-//    nums.push_back(1);
+    nums.push_back(3);
+    nums.push_back(4);
+    nums.push_back(-1);
     nums.push_back(1);
-    nums.push_back(2);
-    nums.push_back(0);
+//    nums.push_back(1);
+//    nums.push_back(2);
+//    nums.push_back(0);
     int result = firstMissingPositive(nums);
     cout<<"The result is: "<<result<<endl;
     return 0;
