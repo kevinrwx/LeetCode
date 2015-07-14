@@ -1,4 +1,4 @@
-
+ 
 //Binary Tree Maximum Path Sum
 
 #include <iostream>
@@ -13,8 +13,7 @@ struct TreeNode
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-//���Ľڵ�ֵ����Ϊ����
-
+//下面的这种方法没有考虑到节点值为负数的情况
 int maxTreeSum(TreeNode* root)
 {
     if(root == NULL)
@@ -45,6 +44,6 @@ int main()
     root->right->left = new TreeNode(2);
 
     int result = maxPathSum(root);
-    cout<<"The Result is: "<<result;
+    cout<<"The Result is: "<<result<<endl;
     return 0;
 }
