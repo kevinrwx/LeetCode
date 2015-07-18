@@ -1,10 +1,7 @@
 
 //Remove Duplicates from Sorted List II
 
-//1252942084
-//
-//1748657699
-//2721640133
+
 #include <iostream>
 
 using namespace std;
