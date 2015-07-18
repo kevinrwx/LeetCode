@@ -16,33 +16,6 @@ struct ListNode
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
-ListNode* deleteDuplicatesI(ListNode* head)
-{
-	if(head == NULL)
-		return NULL;
-	ListNode* dummy = new ListNode(-1);
-	dummy->next = head;
-	ListNode* pNode = dummy;
-	ListNode* cur = NULL;
-	while(pNode->next->next != NULL) {
-		if(pNode->next->val == pNode->next->next->val) {
-			cur = pNode->next;
-			while(cur->val == cur->next->val) {
-				cur->next = cur->next->next;
-			}
-			pNode->next = pNode->next->next;
-		}
-		if(pNode->next->next != NULL)
-			pNode = pNode->next;
-		else {
-			cout<<pNode->val<<endl;
-			return pNode->next;
-		}
-			//return pNode->next;
-	}
-	return dummy->next;
-}
-
 ListNode* deleteDuplicates(ListNode* head)
 {
 	if(head == NULL)
@@ -52,14 +25,16 @@ ListNode* deleteDuplicates(ListNode* head)
 	ListNode* pNode = head;
 	ListNode* preNode = dummy;
 	ListNode* cur = NULL;
-	while(pNode->next != NULL) {
+	//保证pNode不为空
+	while(pNode != NULL && pNode->next != NULL) {
 		if(pNode->val == pNode->next->val) {
+			int tmp = pNode->val;
 			cur = pNode;
-			while(cur->val == cur->next->val)
-				cur->next = cur->next->next;
-			//pNode = pNode->next;
-			preNode->next = cur->next;
-			pNode = preNode->next;
+			while(cur != NULL && cur->val == tmp) {
+                cur = cur->next;
+			}
+			preNode->next = cur;
+			pNode = cur;
 		}
 		else {
 			pNode = pNode->next;
