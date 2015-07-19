@@ -10,6 +10,7 @@ using namespace std;
 void printVector(vector<int> &nums);
 
 //动态规划方法,还可以继续优化，不需要用temp来存储所有的中间结果，只需要一个变量就行了
+//ToDo:http://blog.sina.com.cn/s/blog_6d0d2ed10100t87t.html  可以参考  还待理解
 int maxSubArrayI(vector<int> &nums)
 {
 	int results = 0;
@@ -30,6 +31,7 @@ int maxSubArrayI(vector<int> &nums)
 }
 
 //ToDo：用分治法
+//可以参考:http://blog.csdn.net/superchanon/article/details/8228212(数据结构：C语言实现)
 int maxSubArrayII(vector<int> &nums)
 {
 	//
