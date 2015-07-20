@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void printVector(vector<vector<int>> &num)
+void printVector(vector<vector<int> > &num)
 {
     //
     if(num.size() == 0)
@@ -26,17 +26,17 @@ void Swap(int *x, int *y)
     *y = temp;
 }
 
-void addToVector(vector<vector<int>> &nums, vector<int> &ins)
+void addToVector(vector<vector<int> > &nums, vector<int> &ins)
 {
     vector<int> instance;
     nums.push_back(instance);
-    vector<vector<int>>::iterator it = nums.end() - 1;
+    vector<vector<int> >::iterator it = nums.end() - 1;
     for(size_t i = 0; i < ins.size(); i++) {
         (*it).push_back(ins[i]);
     }
 }
 
-void permuteVector(vector<vector<int>> &res, vector<int> &num, int i, int n)
+void permuteVector(vector<vector<int> > &res, vector<int> &num, int i, int n)
 {
     int j;
     if(i == n)
@@ -50,14 +50,14 @@ void permuteVector(vector<vector<int>> &res, vector<int> &num, int i, int n)
     }
 }
 
-vector<vector<int>> permute(vector<int> &num)
+vector<vector<int> > permute(vector<int> &num)
 {
-    vector<vector<int>> res;
+    vector<vector<int> > res;
     int len = num.size();
     if(len == 0)
         return res;
     permuteVector(res, num, 0, len-1);
-//    printVector(res);
+    printVector(res);
     return res;
 }
 
