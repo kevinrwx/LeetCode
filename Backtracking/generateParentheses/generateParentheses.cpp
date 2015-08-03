@@ -3,48 +3,35 @@
 
 #include <iostream>
 #include <vector>
-#include <stack>
 #include <string>
 
 using namespace std;
 
-void generate(vector<string> &results, string tmp, stack<char> st, string bracket, int k)
+//参考：http://blog.csdn.net/u011095253/article/details/9158429
+void generate(vector<string> &results, string tmp, int left, int right)
 {
-	if(st.empty() && k == 0) {
+	if(left == 0 && right == 0) {
 		results.push_back(tmp);
-		tmp.clear();
 	}
-	else {
-		for(int i = 0; i < bracket.length(); i++) {
-			if(bracket[i] == bracket[0]) {
-				st.push(bracket[i]);
-				generate(results, tmp, st, bracket, k-1);
-				st.pop();
-			}
-			else {
-				if(!st.empty()) {
-					tmp.push_back(bracket[i]);
-					char temp = st.top();
-					tmp.push_back(temp);
-					st.pop();
-					generate(results, tmp, st, bracket, k-1);
-					st.push(temp);
-				}
-			}
-		}
+	if(left > 0) {
+		tmp.push_back('(');
+		generate(results, tmp, left-1, right);
+		tmp = tmp.substr(0, tmp.length() - 1);
+	}
+	if(left < right) {
+		tmp.push_back(')');
+		generate(results, tmp, left, right - 1);
+		tmp = tmp.substr(0, tmp.length() - 1);
 	}
 }
 
 vector<string> generateParenthesis(int n)
 {
 	vector<string> results;
-	if(n == 0)
+	if(n <= 0)
 		return results;
-	stack<char> st;
 	string tmp;
-	string bracket = "()";
-	int k = 2 * n;
-	generate(results, tmp, st, bracket, k);
+	generate(results, tmp, n, n);
 	return results;
 }
 
@@ -60,89 +47,7 @@ void printVector(vector<string> &results)
 int main()
 {
 	vector<string> results;
-	int n = 1;
-	results = generateParenthesis(n);
-	printVector(results);
-	return 0;
-}
-
-
-
-
-//Generate Parentheses
-
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <string>
-
-using namespace std;
-
-string reverse(string str)
-{
-    string result;
-    int len = str.length();
-    for(int i = len - 1; i >= 0; i--)
-        result.push_back(str[i]);
-    return result;
-}
-
-void generate(vector<string> &results, string tmp, stack<char> st, string bracket, int k)
-{
-	if(k == 0) {
-        if(st.empty()) {
-            string temp = reverse(tmp);
-            results.push_back(temp);
-            tmp.clear();
-        }
-	}
-	else {
-		for(size_t i = 0; i < bracket.length(); i++) {
-			if(bracket[i] == bracket[0]) {
-				st.push(bracket[i]);
-				generate(results, tmp, st, bracket, k-1);
-				st.pop();
-			}
-			else {
-				if(!st.empty()) {
-					tmp.push_back(bracket[i]);
-					char temp = st.top();
-					tmp.push_back(temp);
-					st.pop();
-					generate(results, tmp, st, bracket, k-1);
-					//st.push(temp);
-				}
-			}
-		}
-	}
-}
-
-vector<string> generateParenthesis(int n)
-{
-	vector<string> results;
-	if(n == 0)
-		return results;
-	stack<char> st;
-	string tmp;
-	string bracket = "()";
-	int k = 2 * n;
-	generate(results, tmp, st, bracket, k);
-	return results;
-}
-
-void printVector(vector<string> &results)
-{
-	int len = results.size();
-	if(len == 0)
-		cout<<"empty results"<<endl;
-	for(int i = 0; i < len; i++)
-		cout<<results[i]<<endl;
-}
-
-int main()
-{
-	vector<string> results;
-	int n = 2;
+	int n = 3;
 	results = generateParenthesis(n);
 	printVector(results);
 	return 0;
