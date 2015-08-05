@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//注意点：C++中string转int的方法
 bool isValid(string tmp)
 {
 	if(tmp.at(0) == '0')
@@ -21,6 +22,8 @@ bool isValid(string tmp)
 		return false;
 }
 
+
+//参考资料：http://blog.csdn.net/u011095253/article/details/9158449
 void generateIP(vector<string> &results, string s, string tmp, int count)
 {
 	if(count == 3 && isValid(s))
