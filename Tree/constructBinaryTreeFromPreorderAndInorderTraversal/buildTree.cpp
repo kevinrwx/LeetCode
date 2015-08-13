@@ -25,34 +25,6 @@ void printVector(vector<int> &tmp)
 	cout<<endl;
 }
 
-// TreeNode* buildTree(vector<int> &preorder, vector<int> &inorder)
-// {
-// 	TreeNode* root;
-// 	if(preorder.size() == 0 || inorder.size() == 0)
-// 		return NULL;
-// 	root = new TreeNode(preorder[0]);
-// 	if(preorder.size() == 1 || inorder.sizee() == 1)
-// 		return root;
-// 	vector<int> lpreorder;
-// 	vector<int> linorder;
-// 	vector<int> rpreorder;
-// 	vector<int> rinorder;
-// 	int i = 0;
-// 	while(inorder[i] != preorder[0]) {
-// 		linorder.push_back(inorder[i]);
-// 		lpreorder.push_back(preorder[i+1]);
-// 		i++;
-// 	}
-// 	while(i != inorder.size()-1) {
-// 		rinorder.push_back(inorder[i+1]);
-// 		rpreorder.push_back(preorder[i+1]);
-// 		i++;
-// 	}
-// 	root->left = buildTree(lpreorder, linorder);
-// 	root->right = buildTree(rpreorder, rinorder);
-// 	return root;
-// }
-
 TreeNode* buildOne(vector<int> &preorder, int pstart, int pend, vector<int> &inorder, int istart, int iend)
 {
 	if(pend < pstart)
