@@ -13,46 +13,39 @@ struct TreeNode {
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-void addUp(TreeNode* tree, int gap) {
-	//
-}
 
-vector<TreeNode*> treesAdd(vector<TreeNode*> trees, int gap) {
-	if(gap == 0)
-		return trees;
-	int len = trees.size();
+//这种方法在求左右子树的时候进行了重复计算，导致运算量比较大，所以这道题目还有再优化的空间
+vector<TreeNode*> genBST(int min, int max)
+{
 	vector<TreeNode*> results;
-	for(int i = 0; i < len; i++) {
-		addUp(trees[i], gap);
-		results.push_back(trees[i]);
+	if(min > max) {
+		results.push_back(NULL);
+		return results;
+	}
+
+	for(int i = min; i <= max; i++) {
+		vector<TreeNode*> leftSubTree = genBST(min, i-1);
+		vector<TreeNode*> rightSubTree = genBST(i+1, max);
+		int leftSize = leftSubTree.size();
+		int rightSize = rightSubTree.size();
+		for(int j = 0; j < leftSize; j++) {
+			for(int k = 0; k < rightSize; k++) {
+				TreeNode* tmp = new TreeNode(i);
+				tmp->left = leftSubTree[j];
+				tmp->right = rightSubTree[k];
+				results.push_back(tmp);
+			}
+		}
 	}
 	return results;
 }
 
-vector<TreeNode*> generateTrees(int n) {
-	vector<vector<TreeNode*> > results;
-	vector<TreeNode*> temp; //用空值填充results[0]
-	results.push_back(temp);
-	TreeNode* node = new TreeNode(1);
-	temp.push_back(node);	//给results[0]赋值
-	results.push_back(temp);
-	for(int i = 2; i <= n; i++) {
-		vector<TreeNode*> tmp;
-		vector<TreeNode*> Left = results[i-1];
-		vector<TreeNode*> Right = treesAdd(results[n-i], i);
-		int lenL = Left.size();
-		int lenR = Right.size();
-		for(int j = 0; j < lenL; j++) {
-			for(int k = 0; k < lenR; k++) {
-				TreeNode* node = new TreeNode(i);
-				node->left = Left[j];
-				node->right = Right[k];
-				tmp.push_back(node);
-			}
-		}
-		results.push_back(tmp);
-	}
+
+vector<TreeNode*> generateTrees(int n)
+{
+	return genBST(1, n);
 }
+
 
 int main() {
 	//
