@@ -2,6 +2,7 @@
 //Reverse Integer
 
 #include <iostream>
+#include <limits.h>
 
 using namespace std;
 
@@ -9,21 +10,26 @@ int reverse(int x) {
 	int flag;
 	if(x >= 0)
 		flag = 1;
-	else
+	else 
 		flag = -1;
-	int result = 0;
+	x = x * flag;
+	long long result = 0;
 	int tmp;
 	while(x > 0) {
 		tmp = x % 10;
-		x = x/10;
-		result = result + tmp * 10;
+		x = x / 10;
+		result = result * 10 + tmp;
+		if(result > INT_MAX) {
+			result = 0;
+			break;
+		}
 	}
-	return result;
+	return result * flag;
 }
 
 int main() {
-	int x = 123;
-	int result = reverse(x);
+	int x = 1534236469;
+	long long result = reverse(x);
 	cout<<"result: "<<result<<endl;
 	return 0;
 }
