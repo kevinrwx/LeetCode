@@ -2,83 +2,6 @@
 
 //Divide Two Integers
 
-// #include <iostream>
-// #include <limits.h>
-
-
-// using namespace std;
-
-// unsigned long opposite(int num)
-// {
-//     return ~num + 1;
-// }
-
-// unsigned long myAbs(int num)
-// {
-//     if(num < 0)
-//         return ~(--num);
-//     return num;
-// }
-
-
-// int divide(int dividend, int divisor)
-// {
-//     if(divisor == 0)
-//         return INT_MAX;
-//     if(dividend == 0)
-//         return 0;
-//     unsigned long tmpDividend = myAbs(dividend);
-//     unsigned long tmpDivisor = myAbs(divisor);
-
-//     unsigned long result = 0;
-//     unsigned long counts = 1;
-//     unsigned long sum = tmpDivisor;
-//     unsigned long tmpSum = 0;
-//     unsigned long tmpCounts = 0;
-
-//     if(sum > tmpDividend)
-//         return 0;
-//     if(sum == tmpDividend)
-//         return 1;
-//     while(tmpDividend > sum) {
-//         tmpSum = sum;
-//         sum += sum;
-//         tmpCounts = counts;
-//         counts += counts;
-//     }
-//     int tmp = divide(tmpDividend - tmpSum, tmpDivisor);
-//     result = tmpCounts + tmp;
-
-//     if((dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0)) {
-//         if(result > INT_MAX)
-//             return INT_MAX;
-//         else
-//             return result;
-//     }
-//     else {
-//         if(result > INT_MAX)
-//             return INT_MIN;
-//         else
-//             return opposite(result);
-//     }
-// }
-
-
-// int main()
-// {
-//     int dividend = -214748364;
-//     int divisor = 1;
-//     unsigned long result = divide(dividend, divisor);
-
-// //-2147483648
-// //-1010369383
-// //    int num = INT_MIN;
-// //    unsigned long result = abs(num);
-//     cout<<"The result is: "<<result<<endl;
-//     return 0;
-// }
-
-
 #include <iostream>
 
 using namespace std;
@@ -87,59 +10,78 @@ unsigned long opposite(int num) {
     return ~num + 1;
 }
 
-unsigned long myAbs(int num) {
-    if(num < 0)
-        return ~(--num);
-    return num;
-}
+//这种方法是比较传统的方法，很容易想到，而且比较简单，但是对于被除数很大，除数很小的情况，运算时间比较长
+//所以最后提交的时候会超时
+// int divide(int dividend, int divisor) {
+// 	if(divisor == 0)
+// 		return INT_MAX;
+// 	int result = 0;
+// 	int flag;
+// 	if((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0))
+// 		flag = -1;
+// 	else
+// 		flag = 1;
+// 	if(dividend < 0) {
+// 		dividend = opposite(dividend);
+// 	}
+// 	if(divisor < 0) {
+// 		divisor = opposite(divisor);
+// 	}
+// 	while(dividend >= divisor) {
+// 		dividend -= divisor;
+// 		result++;
+// 	}
+// 	if(flag < 0)
+// 		result = opposite(result);
+// 	return result;
+// }
 
-int divide(int dividend, int divisor) {
-	int result = 0;
-	int dividendSymbol = 1;
-	int divisorSymbol = 1;
-	if(dividend < 0) {
-		dividend = opposite(dividend);
-		dividendSymbol = -1;
+//对这种题目真是特别头疼，主要是INT_MAX和INT_MIN，对于这种会越界的情况，还需要再多加强练习
+long long divide(int dividend, int divisor) {
+	if(divisor == 0 || dividend == 0)
+		return 0;
+	long long lDividend = dividend;
+	long long lDivisor = divisor;
+	int flag = 1;
+	long long digit = 0;
+	long long result = 0;
+	if((lDividend < 0 && lDivisor > 0) || (lDividend > 0 && lDivisor < 0))
+		flag = -1;
+	if(lDividend == INT_MIN) {
+		result = 1;
+		lDividend += abs(lDivisor);
 	}
-	if(divisor < 0) {
-		divisor = opposite(divisor);
-		divisorSymbol = -1;
+	if(lDivisor == INT_MIN)
+		return result;
+	if(lDividend < 0)
+		lDividend = opposite(lDividend);
+	if(lDivisor < 0)
+		lDivisor = opposite(lDivisor);
+	while(lDivisor <= (lDividend>>1)) {
+		lDivisor <<= 1;
+		digit++;
 	}
-	while(dividend >= divisor) {
-		dividend -= divisor;
-		result++;
+	while(digit >= 0) {
+		if(lDividend >= lDivisor) {
+			lDividend -= lDivisor;
+			result += 1<<digit;
+		}
+		lDivisor >>= 1;
+		digit--;
 	}
-	if((dividendSymbol < 0 && divisorSymbol > 0) || (dividendSymbol > 0 && divisorSymbol < 0))
+	if(flag < 0)
 		result = opposite(result);
+	if(result >= INT_MAX)
+		result = INT_MAX;
 	return result;
 }
 
 int main() {
-	int dividend = 2147483647;
-	int divisor = 1;
+	int dividend = -2147483648;
+	int divisor = -1;
 	int result = divide(dividend, divisor);
 	cout<<result<<endl;
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
