@@ -20,7 +20,7 @@ bool isPalindrome(string s) {
 	}
 	return true;
 }
-
+//这道题的思路比较简单，按照回溯法的通用公式进行嵌套就可以了
 void backtrack(vector<vector<string> >& result, vector<string>& tmp, string s, int k) {
 	if(k == 0) {
 		result.push_back(tmp);
