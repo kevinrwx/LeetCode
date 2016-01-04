@@ -71,12 +71,10 @@ int ladderLength(string beginWord, string endWord, unordered_set<string>& wordLi
 				if(wordList.find(temp) != wordList.end() && unique.find(temp) == unique.end()) {
 					unique.insert(temp);
 					que.push(temp);
-					cout<<temp<<" ";
 					q2++;
 				}
 			}
 		}
-		cout<<endl;
 		if(q1 == 0) {
 			q1 = q2;
 			q2 = 0;
