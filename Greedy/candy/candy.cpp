@@ -10,6 +10,8 @@ using namespace std;
 //这道题目的思路是：一、先从左往右进行扫描，如果rating[i]大于rating[i-1]，则candy[i]等于candy[i-1]+1；
 //二、从左往右扫描完毕以后，再从右往左进行扫描，对于rating[i]大于rating[i+1],且candy[i]小于等于candy[i+1]
 //的情况，让candy[i]等于candy[i+1]+1；三、完成从右往左的扫描以后，对candy数组进行求和，和就是最后的结果
+
+//下面这种方法需要o(n)的空间，网上还有一种方法可以降低空间的使用量，在第二次刷这道题目时，可以思考一下这种方法
 int candy(vector<int>& ratings) {
 	if(ratings.empty())
 		return 0;
