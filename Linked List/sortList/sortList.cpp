@@ -110,7 +110,7 @@ ListNode* merge(ListNode* head1, ListNode* head2) {
 	return dummy->next;
 }
 
-//这个版本的merge程序看起来更加简洁
+//这个版本的merge程序看起来更加简洁，选择哪个merge的程序还得看
 // ListNode* merge(ListNode* head1, ListNode* head2) {
 // 	if(head1 == NULL)
 // 		return head2;
