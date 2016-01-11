@@ -70,6 +70,59 @@ int findMin(vector<int>& nums) {
 	return min(nums[left], nums[right]);
 }
 
+//查找target元素出现的位置，并返回该位置，如果target不存在或者是数组为空，则返回-1
+int binarySearch(vector<int>& nums, int target) {
+	if(nums.empty())
+		return -1;
+	int left = 0, mid, right = nums.size() - 1;
+	while(left <= right) {
+		mid = left + (right - left) / 2;
+		if(nums[mid] == target)
+			return mid;
+		else if(nums[mid] > target)
+			right = mid - 1;
+		else
+			left = mid + 1;
+	}
+	return -1;
+}
+
+//第二种方法，注意right的初始值有变化
+int binarySearch(vector<int>& nums, int target) {
+	if(nums.empty())
+		return -1;
+	int left = 0, mid, right = nums.size();
+	while(left <= right) {
+		mid = left + (right - left) / 2;
+		if(nums[mid] == target)
+			return mid;
+		else if(nums[mid] > target)
+			right = mid;
+		else
+			left = mid + 1;
+	}
+	return -1;
+}
+
+
+//查找target第一次出现的位置(target有可能包含重复元素)，如果不存在或者数组为空，则返回-1
+int binarySearchFirst(vector<int>& nums, int target) {
+	if(nums.empty())
+		return -1;
+	int left = 0, right = nums.size() - 1;
+	int mid;
+	while(left < right) {
+		mid = left + (right - left) / 2;
+		if(nums[mid] >= target)
+			right = mid;
+		else
+			left = mid + 1;
+	}
+	if(nums[left] == target)
+		return left;
+	return -1;
+}
+
 vector<int> arr2Vec(int nums[], int n) {
 	vector<int> result;
 	for(int i = 0; i < n; i++)
@@ -80,10 +133,11 @@ vector<int> arr2Vec(int nums[], int n) {
 
 
 int main() {
-	int arr[] = {6, 7, 8, 1, 1, 2, 3, 4, 5};
+	int arr[] = {1, 2, 3, 4, 5};
 	int n = sizeof(arr) / sizeof(arr[0]);
 	vector<int> nums = arr2Vec(arr, n);
-	int result = findMin(nums);
+	// int result = findMin(nums);
+	int result = binarySearch(nums, 6);
 	cout<<result<<endl;
 	return 0;
 }
