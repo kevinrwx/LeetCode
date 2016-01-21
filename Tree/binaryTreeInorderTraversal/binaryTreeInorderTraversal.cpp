@@ -36,6 +36,24 @@ vector<int> inorderTraversal(TreeNode* root)
 	return nums;
 }
 
+//another recursive way
+void inorder(TreeNode* root, vector<int>& nums) {
+	if(root != NULL) {
+		inorderTraversal(root->left, nums);
+		nums.push_back(root->val);
+		inorderTraversal(root->right, nums);
+	}
+}
+
+vector<int> inorderTraversal(TreeNode* root) {
+	vector<int> results;
+	if(root == NULL)
+		return results;
+	inorder(root, results);
+	return results;
+}
+
+
 //Iteratively Way
 vector<int> inorderTraversal(TreeNode* root)
 {
