@@ -50,6 +50,7 @@ vector<int> majorityElement(vector<int>& nums) {
         return result;
     int cnt1 = 0, cnt2 = 0;
     int num1 = 0, num2 = 0;
+    //在这个循环内，要注意if条件的顺序，先判断num1或者num2是否跟nums[i]相同，然后再判断
     for(int i = 0; i < length; i++) {
         if(nums[i] == num1)
             cnt1++;
